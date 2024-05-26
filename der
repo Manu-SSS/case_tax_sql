@@ -1,0 +1,45 @@
+MELI_CUSTOMER
++---------------------+
+| ID_Customer (PK)    |
+| Email               |
+| Nombre              |
+| Apellido            |
+| Sexo                |
+| Direccion           |
+| Fecha_Nacimiento    |
+| Telefono            |
++---------------------+
+
+MELI_ORDER
++---------------------+
+| ID_Order (PK)       |
+| ID_Customer (FK)    | -- Buyer
+| Fecha               |
++---------------------+
+
+MELI_ORDER_ITEM
++---------------------+
+| ID_Order (PK, FK)   |
+| ID_Item (PK, FK)    |
+| Cantidad            |
+| Precio_Unitario     |
++---------------------+
+
+MELI_ITEM
++---------------------+
+| ID_Item (PK)        |
+| Nombre              |
+| Descripcion         |
+| Fecha_Publicacion   |
+| Fecha_Baja          |
+| Precio              |
+| ID_Category (FK)    |
+| ID_Seller (FK)      | -- Seller
++---------------------+
+
+MELI_CATEGORY
++---------------------+
+| ID_Category (PK)    |
+| Descripcion         |
+| Path                |
++---------------------+

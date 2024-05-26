@@ -1,0 +1,60 @@
+CREATE TABLE MELI_CUSTOMER (
+    ID_Customer INT64 NOT NULL,
+    Email STRING NOT NULL,
+    Nombre STRING NOT NULL,
+    Apellido STRING NOT NULL,
+    Sexo STRING(1),
+    Direccion STRING,
+    Fecha_Nacimiento DATETIME,
+    Telefono STRING,
+    PRIMARY KEY (ID_Customer)
+);
+
+CREATE TABLE MELI_CATEGORY (
+    ID_Category INT64 NOT NULL,
+    Descripcion STRING NOT NULL,
+    Path STRING NOT NULL,
+    PRIMARY KEY (ID_Category)
+);
+
+CREATE TABLE MELI_ITEM (
+    ID_Item INT64 NOT NULL,
+    Nombre STRING NOT NULL,
+    Descripcion STRING,
+    Fecha_Publicacion DATETIME NOT NULL,
+    Fecha_Baja DATETIME,
+    Precio NUMERIC,
+    Estado STRING NOT NULL,
+    ID_Category INT64 NOT NULL,
+    ID_Seller INT64 NOT NULL,
+    PRIMARY KEY (ID_Item),
+    FOREIGN KEY (ID_Category) REFERENCES MELI_CATEGORY(ID_Category),
+    FOREIGN KEY (ID_Seller) REFERENCES MELI_CUSTOMER(ID_Customer)
+);
+
+CREATE TABLE MELI_ORDER (
+    ID_Order INT64 NOT NULL,
+    ID_Customer INT64 NOT NULL,
+    Fecha DATETIME NOT NULL,
+    PRIMARY KEY (ID_Order),
+    FOREIGN KEY (ID_Customer) REFERENCES MELI_CUSTOMER(ID_Customer)
+);
+
+CREATE TABLE MELI_ORDER_ITEM (
+    ID_Order INT64 NOT NULL,
+    ID_Item INT64 NOT NULL,
+    Cantidad INT64 NOT NULL,
+    Precio_Unitario NUMERIC NOT NULL,
+    PRIMARY KEY (ID_Order, ID_Item),
+    FOREIGN KEY (ID_Order) REFERENCES MELI_ORDER(ID_Order),
+    FOREIGN KEY (ID_Item) REFERENCES MELI_ITEM(ID_Item)
+);
+
+CREATE TABLE MELI_ITEM_SNAPSHOT (
+    ID_Item INT64 NOT NULL,
+    Precio NUMERIC,
+    Estado STRING NOT NULL,
+    Snapshot_Date DATETIME,
+    PRIMARY KEY (ID_Item, Snapshot_Date),
+    FOREIGN KEY (ID_Item) REFERENCES MELI_ITEM(ID_Item)
+);
